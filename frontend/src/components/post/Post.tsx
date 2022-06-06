@@ -1,7 +1,9 @@
-import React, { FC, memo, useCallback, useState } from "react";
+import React, { FC, memo, useCallback, useState,useEffect } from "react";
+import axios from "axios";
 import { MoreVert } from "@mui/icons-material";
+import { TUser } from "../../types/api/users";
 import { TPost } from "../../types/api/posts";
-import { Users } from "../../dummyData";
+// import { Users } from "../../dummyData";
 import "./Post.css";
 
 type Props = {
@@ -12,11 +14,24 @@ export const Post: FC<Props> = memo((props) => {
   const { post } = props;
   const [like, setLike] = useState<number>(0);
   const [isLiked, setIsLiked] = useState(false);
+  const [user, setUser] = useState<TUser>();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const response = await axios.get(`/users/${post.userId}`);
+      setUser(response.data);
+    };
+    fetchUser();
+  }, []);
 
   const handleLike = useCallback(() => {
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
   }, [setLike, setIsLiked, like, isLiked]);
+
+  if (user === undefined) {
+    throw new Error("ユーザーが見つかりません");
+  }
 
   return (
     <div className="post">
@@ -24,12 +39,12 @@ export const Post: FC<Props> = memo((props) => {
         <div className="postTop">
           <div className="postTopLeft">
             <img
-              src={Users.filter((user) => user.id === post.id)[0].profilePicture}
+              src = {user.profilePicture}
               alt=""
               className="postProfileImg"
             />
             <span className="postUsername">
-              {Users.filter((user) => user.id === post.id)[0].username}
+              {user.username}
             </span>
             <span className="postDate">{post.date}</span>
           </div>

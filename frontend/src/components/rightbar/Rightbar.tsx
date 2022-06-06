@@ -4,13 +4,13 @@ import { Online } from "../online/Online";
 import "./Rightbar.css";
 
 export const Rightbar = memo(() => {
-  const profile = true;
+  const profile = false;
 
   const HomeRightbar = () => {
     return (
       <>
         <div className="eventContainer">
-          <img src="assets/star.png" alt="" className="starImg" />
+          <img src="/assets/star.png" alt="" className="starImg" />
           <span className="eventText">
             <b>フォロワー限定</b>イベント開催中!
           </span>
