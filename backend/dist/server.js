@@ -10,7 +10,7 @@ const posts_1 = __importDefault(require("./routes/posts"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const app = (0, express_1.default)();
-const PORT = 3000;
+const PORT = 5000;
 dotenv_1.default.config();
 //データベース接続
 mongoose_1.default
