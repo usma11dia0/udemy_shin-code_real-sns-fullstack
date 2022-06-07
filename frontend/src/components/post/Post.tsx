@@ -8,6 +8,7 @@ import "./Post.css";
 import axios from "axios";
 import { format } from "timeago.js";
 import { MoreVert } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 type Props = {
   post: TPost;
@@ -22,11 +23,11 @@ export const Post: FC<Props> = memo((props) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await axios.get<TUser>(`/users/${post.userId}`);
+      const response = await axios.get<TUser>(`/users?userId=${post.userId}`);
       setUser(response.data);
     };
     fetchUser();
-  }, []);
+  }, [post.userId]);
 
   const handleLike = useCallback(() => {
     setLike(isLiked ? like - 1 : like + 1);
@@ -38,17 +39,19 @@ export const Post: FC<Props> = memo((props) => {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img
-              src={
-                !user
-                  ? "/assets/person/noAvatar.png"
-                  : !user.profilePicture
-                  ? "/assets/person/noAvatar.png"
-                  : user.profilePicture
-              }
-              alt=""
-              className="postProfileImg"
-            />
+            <Link to={`/profile/${user? user.username: ""}`}>
+              <img
+                src={
+                  !user
+                    ? "/assets/person/noAvatar.png"
+                    : !user.profilePicture
+                    ? "/assets/person/noAvatar.png"
+                    : user.profilePicture
+                }
+                alt=""
+                className="postProfileImg"
+              />
+            </Link>
             <span className="postUsername">{user ? user.username : ""}</span>
             <span className="postDate">{format(post.createdAt)}</span>
           </div>

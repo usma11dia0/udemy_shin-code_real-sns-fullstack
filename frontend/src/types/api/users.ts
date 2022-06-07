@@ -1,7 +1,9 @@
 export type TUser = {
   id: number;
-  profilePicture: string;
+  profilePicture?: string;
+  coverPicture?: string;
   username: string;
   desc?: string;
+
 }
 

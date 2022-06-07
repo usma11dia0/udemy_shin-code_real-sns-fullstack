@@ -7,7 +7,6 @@ import { Post } from "../post/Post";
 import { Share } from "../share/Share";
 import "./TimeLine.css";
 
-
 type Props = {
   username?: string;
 };
@@ -18,13 +17,13 @@ export const TimeLine: FC<Props> = memo((props) => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = username
-        ? await axios.get(`/posts/profile/${username}`)
-        : await axios.get("/posts/timeline/62972757ee8afe17603116e4");
+      const response = (username)
+        ? await axios.get<Array<TPost>>(`/posts/profile/${username}`)
+        : await axios.get<Array<TPost>>("/posts/timeline/62972757ee8afe17603116e4");
       setPosts(response.data);
     };
     fetchPosts();
-  }, []);
+  }, [username,setPosts,posts]);
 
   return (
     <div className="timeline">

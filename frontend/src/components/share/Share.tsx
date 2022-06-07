@@ -1,4 +1,4 @@
-import React, {memo} from "react";
+import React, { memo } from "react";
 import { Analytics, Face, Gif, Image } from "@mui/icons-material";
 import "./Share.css";
 
@@ -7,7 +7,11 @@ export const Share = memo(() => {
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img src="/assets/person/1.jpeg" alt="" className="shareProfileImg" />
+          <img
+            src={"/assets/person/noAvatar.png"}
+            alt=""
+            className="shareProfileImg"
+          />
           <input
             type="test"
             className="shareInput"
