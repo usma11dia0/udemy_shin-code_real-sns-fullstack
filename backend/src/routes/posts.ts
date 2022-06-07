@@ -98,23 +98,14 @@ postRoute.put("/:id/like", async (req: PostRequest<IPost>, res: Response) => {
 
 //タイムラインの投稿を取得
 postRoute.get(
-  "/timeline/all",
+  "/timeline/:id",
   async (req: PostRequest<IPost>, res: Response) => {
     try {
-      const currentUser = await User.findById(req.body.userId);
+      const currentUser = await User.findById(req.params.id);
       if (currentUser) {
         //ユーザー自身が投稿したPostを全て取得する。
         const userPosts = await Post.find({ userId: currentUser._id });
         
-        // //自信がフォローしている友達の投稿内容をすべて取得する(非同期処理対応無し,async,await未使用)
-        // const friendPosts:any = () => { 
-        //   currentUser.followings?.map((friendId:string) => {
-        //       Post.find({userId: friendId});
-        //     }
-        //   );
-        // }
-        // return res.status(200).json(userPosts.concat(...friendPosts));
-
         //自分がフォローしている友達の投稿内容をすべて取得する(非同期処理対応あり,async,await未使用)
         if (currentUser.followings === undefined){
           throw new Error("followings undefined!!")

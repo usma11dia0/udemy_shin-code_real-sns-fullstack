@@ -49,7 +49,7 @@ userRoute.get("/:id", async (req, res) => {
         const user = await User_1.default.findById(req.params.id);
         if (user) {
             const { password, updatedAt, ...other } = user._doc;
-            res.status(200).json(other);
+            return res.status(200).json(other);
         }
     }
     catch (err) {

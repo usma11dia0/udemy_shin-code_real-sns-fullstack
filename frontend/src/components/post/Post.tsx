@@ -18,7 +18,8 @@ export const Post: FC<Props> = memo((props) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await axios.get(`/users/${post.userId}`);
+      const response = await axios.get<TUser>(`/users/${post.userId}`);
+      console.log(response);
       setUser(response.data);
     };
     fetchUser();
@@ -39,12 +40,12 @@ export const Post: FC<Props> = memo((props) => {
         <div className="postTop">
           <div className="postTopLeft">
             <img
-              src = {user.profilePicture}
+              src = {(user)? user.profilePicture : "/assets/person/noAvatar.png"}
               alt=""
               className="postProfileImg"
             />
             <span className="postUsername">
-              {user.username}
+              {(user)? user.username : ""}
             </span>
             <span className="postDate">{post.date}</span>
           </div>
