@@ -7,6 +7,7 @@ interface PostRequest<T> extends Request {
   body: T;
   params: {
     id?: string;
+    username?: string;
   };
 }
 
@@ -95,6 +96,25 @@ postRoute.put("/:id/like", async (req: PostRequest<IPost>, res: Response) => {
     return res.status(500).json(err);
   }
 });
+
+//プロフィール専用のタイムラインの取得
+postRoute.get(
+  "/profile/:username",
+  async (req: PostRequest<IPost>, res: Response) => {
+    try {
+      const user = await User.findOne({ username: req.params.username});
+      if (user) {
+        //ユーザー自身が投稿したPostを全て取得する。
+        const posts = await Post.find({ userId: user._id });
+        return res.status(200).json(posts);
+      }
+    } catch (err: unknown) {
+      return res.status(500).json(err);
+    }
+  }
+);
+
+
 
 //タイムラインの投稿を取得
 postRoute.get(

@@ -1,17 +1,24 @@
-import React, { useState, memo, useEffect } from "react";
-import axios from "axios";
+import React, { useState, memo, useEffect, FC } from "react";
 import { TPost } from "../../types/api/posts";
 import { Post } from "../post/Post";
 import { Share } from "../share/Share";
-// import { Posts } from "../../dummyData";
 import "./TimeLine.css";
 
-export const TimeLine = memo(() => {
+import axios from "axios";
+
+type Props = {
+  username?: string;
+};
+
+export const TimeLine: FC<Props> = memo((props) => {
+  const { username } = props;
   const [posts, setPosts] = useState<Array<TPost>>([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await axios.get("/posts/timeline/62972757ee8afe17603116e4");
+      const response = username
+        ? await axios.get(`/posts/profile/${username}`)
+        : await axios.get("/posts/timeline/62972757ee8afe17603116e4");
       setPosts(response.data);
     };
     fetchPosts();
@@ -22,7 +29,7 @@ export const TimeLine = memo(() => {
       <div className="timelineWrapper">
         <Share />
         {posts.map((post) => (
-          <Post post={post} key={post.id} />
+          <Post post={post} key={post._id} />
         ))}
       </div>
     </div>

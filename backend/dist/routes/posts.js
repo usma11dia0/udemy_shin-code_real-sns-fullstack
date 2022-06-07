@@ -97,6 +97,20 @@ postRoute.put("/:id/like", async (req, res) => {
         return res.status(500).json(err);
     }
 });
+//プロフィール専用のタイムラインの取得
+postRoute.get("/profile/:username", async (req, res) => {
+    try {
+        const user = await User_1.default.findOne({ username: req.params.username });
+        if (user) {
+            //ユーザー自身が投稿したPostを全て取得する。
+            const posts = await Post_1.default.find({ userId: user._id });
+            return res.status(200).json(posts);
+        }
+    }
+    catch (err) {
+        return res.status(500).json(err);
+    }
+});
 //タイムラインの投稿を取得
 postRoute.get("/timeline/:id", async (req, res) => {
     var _a;

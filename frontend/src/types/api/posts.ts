@@ -1,9 +1,9 @@
 export type TPost = {
-  id: number;
+  _id: number;
   desc?: string;
   img: string;
-  date: string;
+  createdAt: string;
   userId: number;
-  like: number;
+  likes: Array<string>;
   comment: number;
 }

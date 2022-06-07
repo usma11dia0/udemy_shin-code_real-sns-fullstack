@@ -27,7 +27,7 @@ export const Profile = () => {
             </div>
           </div>
           <div className="profileRightBottom">
-            <TimeLine />
+            <TimeLine username = "shincode" />
             <Rightbar />
           </div>
         </div>

@@ -1,10 +1,12 @@
 import React, { FC, memo, useCallback, useState, useEffect } from "react";
-import axios from "axios";
-import { MoreVert } from "@mui/icons-material";
 import { TUser } from "../../types/api/users";
 import { TPost } from "../../types/api/posts";
 // import { Users } from "../../dummyData";
 import "./Post.css";
+
+import axios from "axios";
+import { format } from "timeago.js";
+import { MoreVert } from "@mui/icons-material";
 
 type Props = {
   post: TPost;
@@ -12,7 +14,7 @@ type Props = {
 
 export const Post: FC<Props> = memo((props) => {
   const { post } = props;
-  const [like, setLike] = useState<number>(0);
+  const [like, setLike] = useState<number>(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState<TUser>();
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -47,7 +49,7 @@ export const Post: FC<Props> = memo((props) => {
               className="postProfileImg"
             />
             <span className="postUsername">{user ? user.username : ""}</span>
-            <span className="postDate">{post.date}</span>
+            <span className="postDate">{format(post.createdAt)}</span>
           </div>
           <div className="postTopRight">
             <MoreVert />
