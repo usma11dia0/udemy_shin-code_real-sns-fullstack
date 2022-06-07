@@ -1,7 +1,7 @@
 export type TPost = {
   id: number;
   desc?: string;
-  photo: string;
+  img: string;
   date: string;
   userId: number;
   like: number;

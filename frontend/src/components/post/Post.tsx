@@ -1,4 +1,4 @@
-import React, { FC, memo, useCallback, useState,useEffect } from "react";
+import React, { FC, memo, useCallback, useState, useEffect } from "react";
 import axios from "axios";
 import { MoreVert } from "@mui/icons-material";
 import { TUser } from "../../types/api/users";
@@ -15,11 +15,11 @@ export const Post: FC<Props> = memo((props) => {
   const [like, setLike] = useState<number>(0);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState<TUser>();
+  const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
     const fetchUser = async () => {
       const response = await axios.get<TUser>(`/users/${post.userId}`);
-      console.log(response);
       setUser(response.data);
     };
     fetchUser();
@@ -30,23 +30,23 @@ export const Post: FC<Props> = memo((props) => {
     setIsLiked(!isLiked);
   }, [setLike, setIsLiked, like, isLiked]);
 
-  if (user === undefined) {
-    throw new Error("ユーザーが見つかりません");
-  }
-
   return (
     <div className="post">
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
             <img
-              src = {(user)? user.profilePicture : "/assets/person/noAvatar.png"}
+              src={
+                !user
+                  ? "/assets/person/noAvatar.png"
+                  : !user.profilePicture
+                  ? "/assets/person/noAvatar.png"
+                  : user.profilePicture
+              }
               alt=""
               className="postProfileImg"
             />
-            <span className="postUsername">
-              {(user)? user.username : ""}
-            </span>
+            <span className="postUsername">{user ? user.username : ""}</span>
             <span className="postDate">{post.date}</span>
           </div>
           <div className="postTopRight">
@@ -55,14 +55,12 @@ export const Post: FC<Props> = memo((props) => {
         </div>
         <div className="postCenter">
           <span className="postText">{post.desc}</span>
-          <img src={post.photo} alt="" className="postImg" />
+          <img src={PUBLIC_FOLDER + post.img} alt="" className="postImg" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
             <img
-              src={
-                "/assets/heart.png"
-              }
+              src={"/assets/heart.png"}
               alt=""
               className="likeIcon"
               onClick={() => handleLike()}
