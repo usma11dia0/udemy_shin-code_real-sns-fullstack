@@ -43,10 +43,26 @@ userRoute.delete("/:id", async (req, res) => {
             .json("あなたは自分のアカウントの時だけ情報を削除できます");
     }
 });
-//ユーザー情報の取得
-userRoute.get("/:id", async (req, res) => {
+// //ユーザー情報の取得
+// userRoute.get("/:id", async (req: UserRequest<IUser>, res: Response) => {
+//   try {
+//     const user = await User.findById(req.params.id);
+//     if (user) {
+//       const { password, updatedAt, ...other } = user._doc;
+//       return res.status(200).json(other);
+//     }
+//   } catch (err: unknown) {
+//     return res.status(500).json(err);
+//   }
+// });
+//クエリでユーザー情報の取得
+userRoute.get("/", async (req, res) => {
+    const userId = req.query.userId;
+    const username = req.query.username;
     try {
-        const user = await User_1.default.findById(req.params.id);
+        const user = userId
+            ? await User_1.default.findById(userId)
+            : await User_1.default.findOne({ username: username });
         if (user) {
             const { password, updatedAt, ...other } = user._doc;
             return res.status(200).json(other);

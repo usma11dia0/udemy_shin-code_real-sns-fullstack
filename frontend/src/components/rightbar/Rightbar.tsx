@@ -1,10 +1,15 @@
-import React, { memo } from "react";
+import React, { FC, memo } from "react";
 import { Users } from "../../dummyData";
+import { TUser } from "../../types/api/users";
 import { Online } from "../online/Online";
 import "./Rightbar.css";
 
-export const Rightbar = memo(() => {
-  const profile = false;
+type Props = {
+  user?: TUser;
+};
+
+export const Rightbar: FC<Props> = memo((props) => {
+  const { user } = props;
 
   const HomeRightbar = () => {
     return (
@@ -105,7 +110,7 @@ export const Rightbar = memo(() => {
   return (
     <div className="rightbar">
       <div className="rightbarWrapper">
-        {profile ? <ProfileRightbar /> : <HomeRightbar />}
+        {user ? <ProfileRightbar /> : <HomeRightbar />}
       </div>
     </div>
   );

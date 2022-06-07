@@ -1,7 +1,8 @@
+/* eslint-disable  react-hooks/exhaustive-deps */
+
 import React, { FC, memo, useCallback, useState, useEffect } from "react";
 import { TUser } from "../../types/api/users";
 import { TPost } from "../../types/api/posts";
-// import { Users } from "../../dummyData";
 import "./Post.css";
 
 import axios from "axios";

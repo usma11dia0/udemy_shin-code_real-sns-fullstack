@@ -44,14 +44,33 @@ userRoute.delete("/:id", async (req: UserRequest<IUser>, res: Response) => {
   }
 });
 
-//ユーザー情報の取得
-userRoute.get("/:id", async (req: UserRequest<IUser>, res: Response) => {
+// //ユーザー情報の取得
+// userRoute.get("/:id", async (req: UserRequest<IUser>, res: Response) => {
+//   try {
+//     const user = await User.findById(req.params.id);
+//     if (user) {
+//       const { password, updatedAt, ...other } = user._doc;
+//       return res.status(200).json(other);
+//     }
+//   } catch (err: unknown) {
+//     return res.status(500).json(err);
+//   }
+// });
+
+//クエリでユーザー情報の取得
+userRoute.get("/", async (req: UserRequest<IUser>, res: Response) => {
+  const userId = req.query.userId;
+  const username = req.query.username;
   try {
-    const user = await User.findById(req.params.id);
+    const user = userId
+      ? await User.findById(userId)
+      : await User.findOne({ username: username });
+
     if (user) {
       const { password, updatedAt, ...other } = user._doc;
       return res.status(200).json(other);
     }
+
   } catch (err: unknown) {
     return res.status(500).json(err);
   }

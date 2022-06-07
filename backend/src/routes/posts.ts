@@ -1,6 +1,8 @@
 import Express, { Request, Response } from "express";
+
 import Post, { IPost } from "../models/Post";
 import User from "../models/User";
+
 const postRoute = Express.Router();
 
 interface PostRequest<T> extends Request {

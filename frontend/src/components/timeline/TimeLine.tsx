@@ -1,10 +1,12 @@
-import React, { useState, memo, useEffect, FC } from "react";
+/* eslint-disable  react-hooks/exhaustive-deps */
+import { useState, memo, useEffect, FC } from "react";
+import axios from "axios";
+
 import { TPost } from "../../types/api/posts";
 import { Post } from "../post/Post";
 import { Share } from "../share/Share";
 import "./TimeLine.css";
 
-import axios from "axios";
 
 type Props = {
   username?: string;
