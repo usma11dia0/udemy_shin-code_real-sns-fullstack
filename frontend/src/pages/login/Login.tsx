@@ -1,7 +1,16 @@
-import React from "react";
+import React, { FormEvent, useRef } from "react";
 import "./Login.css";
 
 export const Login = () => {
+  const email = useRef<HTMLInputElement>(null);
+  const password = useRef<HTMLInputElement>(null);
+  console.log(email);
+  const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); //ログインボタンを押した際のページ移動及びリロードを防ぐ。
+    console.log((email.current)? email.current.value : undefined);
+    console.log((password.current)? password.current.value : undefined);
+  }
+
   return (
     <div className="login">
       <div className="loginWrapper">
@@ -10,18 +19,27 @@ export const Login = () => {
           <span className="loginDesc">本格的なSNSを自分の手で</span>
         </div>
         <div className="loginRight">
-          <div className="loginBox">
+          <form className="loginBox" onSubmit={(e) => handleSubmit(e)}>
             <p className="loginMsg">ログインはこちら</p>
-            <input type="text" className="loginInput" placeholder="Eメール" />
             <input
-              type="text"
+              type="email"
+              className="loginInput"
+              placeholder="Eメール"
+              required
+              ref = {email}
+            />
+            <input
+              type="password"
               className="loginInput"
               placeholder="パスワード"
+              required
+              minLength = {6}
+              ref = {password}
             />
             <button className="loginButton">ログイン</button>
-            <span className="loginForgot">ログインを忘れた方へ</span>
+            <span className="loginForgot">パスワードを忘れた方へ</span>
             <button className="registerButton">アカウント作成</button>
-          </div>
+          </form>
         </div>
       </div>
     </div>

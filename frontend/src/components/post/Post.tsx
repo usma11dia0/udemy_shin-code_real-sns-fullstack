@@ -39,7 +39,7 @@ export const Post: FC<Props> = memo((props) => {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <Link to={`/profile/${user? user.username: ""}`}>
+            <Link to={`/profile/${user ? user.username : ""}`}>
               <img
                 src={
                   !user
