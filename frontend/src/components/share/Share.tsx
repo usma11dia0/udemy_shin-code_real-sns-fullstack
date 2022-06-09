@@ -1,10 +1,27 @@
-import React, { memo, useContext } from "react";
+import React, { memo, useContext, useRef, FormEvent} from "react";
 import { Analytics, Face, Gif, Image } from "@mui/icons-material";
 import "./Share.css";
 import { AuthContext } from "../../state/AuthContext";
+import axios from "axios";
 
 export const Share = memo(() => {
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  const desc = useRef<HTMLInputElement>(null);
+  const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const newPost = {
+      userId: user?._id,
+      desc: desc.current? desc.current.value : undefined
+    };
+
+    try {
+      await axios.post("/posts", newPost);
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="share">
       <div className="shareWrapper">
@@ -24,11 +41,12 @@ export const Share = memo(() => {
             type="test"
             className="shareInput"
             placeholder="今何してるの?"
+            ref={desc}
           />
         </div>
         <hr className="shareHr" />
 
-        <div className="shareButtons">
+        <form className="shareButtons" onSubmit={(e) => handleSubmit(e)}>
           <div className="shareOptions">
             <div className="shareOption">
               <Image className="shareIcon" htmlColor="blue" />
@@ -47,8 +65,10 @@ export const Share = memo(() => {
               <span className="shareOptionText">投票</span>
             </div>
           </div>
-          <button className="shareButton">投稿</button>
-        </div>
+          <button className="shareButton" type="submit">
+            投稿
+          </button>
+        </form>
       </div>
     </div>
   );
