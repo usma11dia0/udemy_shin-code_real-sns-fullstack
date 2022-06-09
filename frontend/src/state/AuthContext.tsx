@@ -1,9 +1,20 @@
-import { createContext, useReducer, ReactNode, FC } from "react";
+import { createContext, useReducer, ReactNode} from "react";
 import { AuthReducer, TState } from "./AuthReducer";
 
 //最初のユーザー状態を定義
 const initialState = {
-  user: null,
+  // user: null,
+  user:{
+    _id :"62972757ee8afe17603116e4",
+    username : "shincode",
+    email : "shincode@gmail.com",
+    password : "abcdef",
+    profilePicture : "/assets/person/1.jpeg",
+    coverPicture : "",
+    followers : [""],
+    followings : [""],
+    isAdmin: false,
+  },
   isFetching: false,
   error: false,
 };

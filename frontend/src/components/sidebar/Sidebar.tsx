@@ -57,7 +57,7 @@ export const Sidebar = () => {
         <hr className="sidebarHr" />
         <ul className="sidebarFriendList">
           {Users.map((user) => (
-            <CloseFriend user={user} key={user.id} />
+            <CloseFriend user={user} key={user.userId} />
           ))}
         </ul>
       </div>

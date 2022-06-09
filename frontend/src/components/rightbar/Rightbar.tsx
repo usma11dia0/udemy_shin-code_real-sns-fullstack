@@ -24,7 +24,7 @@ export const Rightbar: FC<Props> = memo((props) => {
         <h4 className="rightbarTitle">オンラインの友達</h4>
         <ul className="rightbarFriendList">
           {Users.map((user) => (
-            <Online user={user} key={user.id} />
+            <Online user={user} key={user.userId} />
           ))}
         </ul>
         <p className="promotionTitle">プロモーション広告</p>

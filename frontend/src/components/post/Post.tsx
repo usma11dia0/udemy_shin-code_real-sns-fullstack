@@ -1,6 +1,6 @@
 /* eslint-disable  react-hooks/exhaustive-deps */
 
-import React, { FC, memo, useCallback, useState, useEffect } from "react";
+import React, { FC, memo, useCallback, useState, useEffect, useContext } from "react";
 import { TUser } from "../../types/api/users";
 import { TPost } from "../../types/api/posts";
 import "./Post.css";
@@ -9,6 +9,7 @@ import axios from "axios";
 import { format } from "timeago.js";
 import { MoreVert } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../state/AuthContext";
 
 type Props = {
   post: TPost;
@@ -16,6 +17,7 @@ type Props = {
 
 export const Post: FC<Props> = memo((props) => {
   const { post } = props;
+  const {user: loginUser} = useContext(AuthContext);
   const [like, setLike] = useState<number>(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState<TUser>();
@@ -29,7 +31,14 @@ export const Post: FC<Props> = memo((props) => {
     fetchUser();
   }, [post.userId]);
 
-  const handleLike = useCallback(() => {
+  const handleLike = useCallback( async () => {
+    try{ 
+      //いいねのAPIを叩く
+      await axios.put(`/posts/${post._id}/like`, {userId: loginUser!._id});
+    } catch(err:unknown) {
+      console.log(err);
+    }
+
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
   }, [setLike, setIsLiked, like, isLiked]);

@@ -1,14 +1,22 @@
-import React, { memo } from "react";
+import React, { memo, useContext } from "react";
 import { Analytics, Face, Gif, Image } from "@mui/icons-material";
 import "./Share.css";
+import { AuthContext } from "../../state/AuthContext";
 
 export const Share = memo(() => {
+  const {user} = useContext(AuthContext);
   return (
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
           <img
-            src={"/assets/person/noAvatar.png"}
+            src={
+              !user
+                ? "/assets/person/noAvatar.png"
+                : !user.profilePicture
+                ? "/assets/person/noAvatar.png"
+                : user.profilePicture
+            }
             alt=""
             className="shareProfileImg"
           />
