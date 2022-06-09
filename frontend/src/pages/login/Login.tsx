@@ -1,15 +1,28 @@
-import React, { FormEvent, useRef } from "react";
+import { stringify } from "querystring";
+import React, { FormEvent, useContext, useRef } from "react";
+import { loginCall } from "../../actionCalls";
+import { AuthContext } from "../../state/AuthContext";
 import "./Login.css";
 
 export const Login = () => {
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
-  console.log(email);
-  const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
+  const { user, isFetching, error, dispatch } = useContext(AuthContext);
+  // console.log(email);
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault(); //ログインボタンを押した際のページ移動及びリロードを防ぐ。
-    console.log((email.current)? email.current.value : undefined);
-    console.log((password.current)? password.current.value : undefined);
-  }
+    // console.log((email.current)? email.current.value : undefined);
+    // console.log((password.current)? password.current.value : undefined);
+    loginCall(
+      {
+        email: email.current ? email.current.value : undefined,
+        password: password.current ? password.current.value : undefined,
+      },
+      dispatch!
+    );
+  };
+
+  console.log(user);
 
   return (
     <div className="login">
@@ -26,15 +39,15 @@ export const Login = () => {
               className="loginInput"
               placeholder="Eメール"
               required
-              ref = {email}
+              ref={email}
             />
             <input
               type="password"
               className="loginInput"
               placeholder="パスワード"
               required
-              minLength = {6}
-              ref = {password}
+              minLength={6}
+              ref={password}
             />
             <button className="loginButton">ログイン</button>
             <span className="loginForgot">パスワードを忘れた方へ</span>
