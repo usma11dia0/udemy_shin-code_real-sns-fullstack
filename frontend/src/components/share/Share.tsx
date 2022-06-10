@@ -1,4 +1,11 @@
-import React, { memo, useContext, useRef, FormEvent} from "react";
+import React, {
+  memo,
+  useContext,
+  useRef,
+  FormEvent,
+  useState,
+  ChangeEvent,
+} from "react";
 import { Analytics, Face, Gif, Image } from "@mui/icons-material";
 import "./Share.css";
 import { AuthContext } from "../../state/AuthContext";
@@ -7,11 +14,15 @@ import axios from "axios";
 export const Share = memo(() => {
   const { user } = useContext(AuthContext);
   const desc = useRef<HTMLInputElement>(null);
-  const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
+
+  const [file, setFile] = useState<File>();
+  console.log(file);
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newPost = {
       userId: user?._id,
-      desc: desc.current? desc.current.value : undefined
+      desc: desc.current ? desc.current.value : undefined,
     };
 
     try {
@@ -48,10 +59,19 @@ export const Share = memo(() => {
 
         <form className="shareButtons" onSubmit={(e) => handleSubmit(e)}>
           <div className="shareOptions">
-            <div className="shareOption">
+            <label className="shareOption" htmlFor="file">
               <Image className="shareIcon" htmlColor="blue" />
               <span className="shareOptionText">写真</span>
-            </div>
+              <input
+                type="file"
+                id="file"
+                accept=".png, .jpeg, .jpg"
+                style={{ display: "none" }}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  e.target.files ? setFile(e.target.files[0]) : undefined
+                }
+              />
+            </label>
             <div className="shareOption">
               <Gif className="shareIcon" htmlColor="hotpink" />
               <span className="shareOptionText">GIF</span>
