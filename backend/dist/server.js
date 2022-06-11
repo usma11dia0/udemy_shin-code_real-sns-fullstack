@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const users_1 = __importDefault(require("./routes/users"));
 const auth_1 = __importDefault(require("./routes/auth"));
 const posts_1 = __importDefault(require("./routes/posts"));
+const upload_1 = __importDefault(require("./routes/upload"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const app = (0, express_1.default)();
@@ -26,6 +27,7 @@ app.use(express_1.default.json());
 app.use("/api/users", users_1.default);
 app.use("/api/auth", auth_1.default);
 app.use("/api/posts", posts_1.default);
+app.use("/api/upload", upload_1.default);
 app.get("/", (req, res) => {
     res.send("hello express");
 });
