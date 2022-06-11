@@ -41,9 +41,9 @@ export const Share = memo(() => {
           <img
             src={
               !user
-                ? PUBLIC_FOLDER + "assets/person/noAvatar.png"
+                ? PUBLIC_FOLDER + "person/noAvatar.png"
                 : !user.profilePicture
-                ? PUBLIC_FOLDER + "assets/person/noAvatar.png"
+                ? PUBLIC_FOLDER + "person/noAvatar.png"
                 : user.profilePicture
             }
             alt=""

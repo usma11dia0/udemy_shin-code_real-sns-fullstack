@@ -5,6 +5,7 @@ import postRoute from "./routes/posts";
 import uploadRoute from "./routes/upload";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import path from "path";
 
 const app = express();
 const PORT = 5000;
@@ -21,6 +22,7 @@ mongoose
   });
 
 //ミドルウェア
+// app.use("/images", express.static(path.join(__dirname, "public/images")));
 app.use(express.json());
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);

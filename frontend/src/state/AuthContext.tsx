@@ -11,7 +11,7 @@ const initialState = {
     username : "shincode",
     email : "shincode@gmail.com",
     password : "abcdef",
-    profilePicture : PUBLIC_FOLDER  + "assets/person/1.jpeg",
+    profilePicture : PUBLIC_FOLDER  + "person/1.jpeg",
     coverPicture : "",
     followers : [""],
     followings : [""],

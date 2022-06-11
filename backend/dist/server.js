@@ -23,6 +23,7 @@ mongoose_1.default
     console.log(err);
 });
 //ミドルウェア
+// app.use("/images", express.static(path.join(__dirname, "public/images")));
 app.use(express_1.default.json());
 app.use("/api/users", users_1.default);
 app.use("/api/auth", auth_1.default);

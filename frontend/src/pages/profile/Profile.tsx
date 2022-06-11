@@ -35,9 +35,9 @@ export const Profile = memo(() => {
               <img
                 src={
                   !user
-                    ? PUBLIC_FOLDER + "assets/post/3.jpeg"
+                    ? PUBLIC_FOLDER + "post/3.jpeg"
                     : !user.coverPicture
-                    ? PUBLIC_FOLDER + "assets/post/3.jpeg"
+                    ? PUBLIC_FOLDER + "post/3.jpeg"
                     : user.coverPicture
                 }
                 alt=""
@@ -46,9 +46,9 @@ export const Profile = memo(() => {
               <img
                 src={
                   !user
-                    ? PUBLIC_FOLDER + "assets/person/noAvatar.png"
+                    ? PUBLIC_FOLDER + "person/noAvatar.png"
                     : !user.profilePicture
-                    ? PUBLIC_FOLDER + "assets/person/noAvatar.png"
+                    ? PUBLIC_FOLDER + "person/noAvatar.png"
                     : user.profilePicture
                 }
                 alt=""
