@@ -14,12 +14,12 @@ import "./Profile.css";
 export const Profile = memo(() => {
   const [user, setUser] = useState<TUser>();
   const username = useParams().username;
+  const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
     const fetchUser = async () => {
       const response = await axios.get<TUser>(`/users?username=${username}`);
       setUser(response.data);
-      console.log(response.data);
     };
     fetchUser();
   }, []);
@@ -35,9 +35,9 @@ export const Profile = memo(() => {
               <img
                 src={
                   !user
-                    ? "/assets/post/3.jpeg"
+                    ? PUBLIC_FOLDER + "assets/post/3.jpeg"
                     : !user.coverPicture
-                    ? "/assets/post/3.jpeg"
+                    ? PUBLIC_FOLDER + "assets/post/3.jpeg"
                     : user.coverPicture
                 }
                 alt=""
@@ -46,9 +46,9 @@ export const Profile = memo(() => {
               <img
                 src={
                   !user
-                    ? "/assets/person/noAvatar.png"
+                    ? PUBLIC_FOLDER + "assets/person/noAvatar.png"
                     : !user.profilePicture
-                    ? "/assets/person/noAvatar.png"
+                    ? PUBLIC_FOLDER + "assets/person/noAvatar.png"
                     : user.profilePicture
                 }
                 alt=""

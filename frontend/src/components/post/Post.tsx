@@ -1,6 +1,13 @@
 /* eslint-disable  react-hooks/exhaustive-deps */
 
-import React, { FC, memo, useCallback, useState, useEffect, useContext } from "react";
+import React, {
+  FC,
+  memo,
+  useCallback,
+  useState,
+  useEffect,
+  useContext,
+} from "react";
 import { TUser } from "../../types/api/users";
 import { TPost } from "../../types/api/posts";
 import "./Post.css";
@@ -17,7 +24,7 @@ type Props = {
 
 export const Post: FC<Props> = memo((props) => {
   const { post } = props;
-  const {user: loginUser} = useContext(AuthContext);
+  const { user: loginUser } = useContext(AuthContext);
   const [like, setLike] = useState<number>(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState<TUser>();
@@ -31,11 +38,11 @@ export const Post: FC<Props> = memo((props) => {
     fetchUser();
   }, [post.userId]);
 
-  const handleLike = useCallback( async () => {
-    try{ 
+  const handleLike = useCallback(async () => {
+    try {
       //いいねのAPIを叩く
-      await axios.put(`/posts/${post._id}/like`, {userId: loginUser!._id});
-    } catch(err:unknown) {
+      await axios.put(`/posts/${post._id}/like`, { userId: loginUser!._id });
+    } catch (err: unknown) {
       console.log(err);
     }
 
@@ -52,9 +59,9 @@ export const Post: FC<Props> = memo((props) => {
               <img
                 src={
                   !user
-                    ? "/assets/person/noAvatar.png"
+                    ? PUBLIC_FOLDER + "assets/person/noAvatar.png"
                     : !user.profilePicture
-                    ? "/assets/person/noAvatar.png"
+                    ? PUBLIC_FOLDER + "assets/person/noAvatar.png"
                     : user.profilePicture
                 }
                 alt=""
@@ -70,12 +77,12 @@ export const Post: FC<Props> = memo((props) => {
         </div>
         <div className="postCenter">
           <span className="postText">{post.desc}</span>
-          <img src={PUBLIC_FOLDER + post.img} alt="" className="postImg" />
+          <img src={post.img? PUBLIC_FOLDER + post.img: undefined} alt="" className="postImg" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
             <img
-              src={"/assets/heart.png"}
+              src={PUBLIC_FOLDER + "assets/heart.png"}
               alt=""
               className="likeIcon"
               onClick={() => handleLike()}

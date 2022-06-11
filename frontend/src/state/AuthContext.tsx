@@ -1,6 +1,8 @@
 import { createContext, useReducer, ReactNode} from "react";
 import { AuthReducer, TState } from "./AuthReducer";
 
+const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
+
 //最初のユーザー状態を定義
 const initialState = {
   // user: null,
@@ -9,7 +11,7 @@ const initialState = {
     username : "shincode",
     email : "shincode@gmail.com",
     password : "abcdef",
-    profilePicture : "/assets/person/1.jpeg",
+    profilePicture : PUBLIC_FOLDER  + "assets/person/1.jpeg",
     coverPicture : "",
     followers : [""],
     followings : [""],

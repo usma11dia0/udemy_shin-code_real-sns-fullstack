@@ -16,10 +16,11 @@ export const Share = memo(() => {
   const desc = useRef<HTMLInputElement>(null);
 
   const [file, setFile] = useState<File>();
-  console.log(file);
+  const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const newPost = {
       userId: user?._id,
       desc: desc.current ? desc.current.value : undefined,
@@ -40,9 +41,9 @@ export const Share = memo(() => {
           <img
             src={
               !user
-                ? "/assets/person/noAvatar.png"
+                ? PUBLIC_FOLDER + "assets/person/noAvatar.png"
                 : !user.profilePicture
-                ? "/assets/person/noAvatar.png"
+                ? PUBLIC_FOLDER + "assets/person/noAvatar.png"
                 : user.profilePicture
             }
             alt=""
