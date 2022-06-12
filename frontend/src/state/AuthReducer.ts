@@ -1,4 +1,4 @@
-import React, { Dispatch } from "react";
+import { Dispatch } from "react";
 import { TUser } from "../types/api/users";
 
 export type TState = {

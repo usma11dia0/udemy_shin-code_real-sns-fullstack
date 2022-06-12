@@ -22,7 +22,7 @@ mongoose
   });
 
 //ミドルウェア
-// app.use("/images", express.static(path.join(__dirname, "public/images")));
+// app.use("/images", express.static(path.join(__dirname + "public/images")));
 app.use(express.json());
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);

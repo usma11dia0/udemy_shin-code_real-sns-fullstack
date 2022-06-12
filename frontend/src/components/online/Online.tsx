@@ -7,12 +7,13 @@ type Props = {
 
 export const Online: FC<Props> = memo((props) => {
   const { user } = props;
+  const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
 
   return (
     <li className="rightbarFriend">
       <div className="rightbarProfileImgContainer">
         <img
-          src={user.profilePicture}
+          src={user.profilePicture ? PUBLIC_FOLDER + user.profilePicture : undefined}
           alt=""
           className="rightbarProfileImg"
         />

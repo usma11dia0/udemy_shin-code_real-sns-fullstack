@@ -59,10 +59,11 @@ export const Post: FC<Props> = memo((props) => {
               <img
                 src={
                   !user
-                    ? PUBLIC_FOLDER + "assets/person/noAvatar.png"
+                    ? PUBLIC_FOLDER + "/person/noAvatar.png"
                     : !user.profilePicture
-                    ? PUBLIC_FOLDER + "assets/person/noAvatar.png"
-                    : user.profilePicture
+                    ? PUBLIC_FOLDER + "/person/noAvatar.png"
+                    : PUBLIC_FOLDER + user.profilePicture
+                    
                 }
                 alt=""
                 className="postProfileImg"
@@ -82,7 +83,7 @@ export const Post: FC<Props> = memo((props) => {
         <div className="postBottom">
           <div className="postBottomLeft">
             <img
-              src={PUBLIC_FOLDER + "assets/heart.png"}
+              src={PUBLIC_FOLDER + "/heart.png"}
               alt=""
               className="likeIcon"
               onClick={() => handleLike()}
