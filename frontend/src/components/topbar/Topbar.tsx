@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Search, Chat, Notifications } from "@mui/icons-material";
+import { Search, Chat, Notifications, Logout } from "@mui/icons-material";
 import "./Topbar.css";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../state/AuthContext";
@@ -7,6 +7,12 @@ import { AuthContext } from "../../state/AuthContext";
 export const Topbar = () => {
   const { user } = useContext(AuthContext);
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
+
+  const onClickLogout = () => {
+    localStorage.removeItem("user");
+    window.location.reload();
+  }
+
   return (
     <>
       <div className="topbarContainer">
@@ -29,11 +35,11 @@ export const Topbar = () => {
           <div className="topbarItemIcons">
             <div className="topbarIconItem">
               <Chat />
-              <span className="topbaIconBadge">1</span>
+              <span className="topbarIconBadge">1</span>
             </div>
             <div className="topbarIconItem">
               <Notifications />
-              <span className="topbaIconBadge">2</span>
+              <span className="topbarIconBadge">2</span>
             </div>
             <Link to={`/profile/${user!.username}`}>
               <img
@@ -46,6 +52,11 @@ export const Topbar = () => {
                 className="topbarImg"
               />
             </Link>
+            <div className="logoutIcon" onClick={onClickLogout}>
+              {/* <Link to = '/register'> */}
+                <Logout />
+              {/* </Link> */}
+            </div>
           </div>
         </div>
       </div>

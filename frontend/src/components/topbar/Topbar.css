@@ -68,7 +68,7 @@
   margin-top: 5px;
 }
 
-.topbarImg {
+.topbarImg{
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -76,7 +76,7 @@
   object-fit: cover;
 }
 
-.topbaIconBadge {
+.topbarIconBadge {
   position: absolute;
   top: -5px;
   right: -5px;
@@ -88,4 +88,10 @@
   align-items: center;
   justify-content: center;
   font-size: 12px;
+}
+
+.logoutIcon{
+  margin-top: 5px;
+  margin-left: 10px;
+  cursor: pointer;
 }

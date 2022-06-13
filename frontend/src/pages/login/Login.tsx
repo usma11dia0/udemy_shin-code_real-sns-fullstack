@@ -6,7 +6,7 @@ import "./Login.css";
 export const Login = () => {
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
-  const { user, dispatch } = useContext(AuthContext);
+  const { dispatch } = useContext(AuthContext);
   // console.log(email);
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault(); //ログインボタンを押した際のページ移動及びリロードを防ぐ。
@@ -20,8 +20,6 @@ export const Login = () => {
       dispatch!
     );
   };
-
-  console.log(user);
 
   return (
     <div className="login">

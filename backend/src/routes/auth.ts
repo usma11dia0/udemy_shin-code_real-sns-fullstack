@@ -41,6 +41,7 @@ authRoute.post("/login", async (req: UserRegisterRequest, res: Response) => {
   }
 });
 
+
 // authRoute.get("/", (req: Request, res: Response) => {
 //   res.send("auth router");
 // });
