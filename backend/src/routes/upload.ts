@@ -1,16 +1,18 @@
 import Express, { Request, Response } from "express";
-import multer, { StorageEngine } from "multer";
-
-import User from "../models/User";
+import multer from "multer";
+import dotenv from "dotenv";
 
 const uploadrouter = Express.Router();
+dotenv.config();
+const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER_FOR_MULTER;
+console.log(PUBLIC_FOLDER);
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/images");
+    cb(null, PUBLIC_FOLDER!);
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    cb(null, req.body.name);
   },
 });
 

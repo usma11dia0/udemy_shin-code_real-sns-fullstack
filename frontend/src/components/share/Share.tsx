@@ -1,4 +1,4 @@
-import React, {
+import {
   memo,
   useContext,
   useRef,
@@ -11,6 +11,9 @@ import "./Share.css";
 import { AuthContext } from "../../state/AuthContext";
 import axios from "axios";
 
+import {TPost} from "../../types/api/posts";
+
+
 export const Share = memo(() => {
   const { user } = useContext(AuthContext);
   const desc = useRef<HTMLInputElement>(null);
@@ -21,10 +24,26 @@ export const Share = memo(() => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const newPost = {
+    const newPost :TPost = {
       userId: user?._id,
-      desc: desc.current ? desc.current.value : undefined,
+      desc: desc.current ? desc.current.value : undefined
     };
+
+    if (file) {
+      const data = new FormData();
+      const fileName = Date.now() + file.name;
+      data.append("name", fileName);
+      data.append("file", file);
+      newPost.img = fileName;
+
+      try {
+        //画像APIを叩く
+        await axios.post("/upload", data);
+      } catch(err){
+        console.log(err)
+      }
+    }
+
 
     try {
       await axios.post("/posts", newPost);
@@ -44,7 +63,7 @@ export const Share = memo(() => {
                 ? PUBLIC_FOLDER + "/person/noAvatar.png"
                 : !user.profilePicture
                 ? PUBLIC_FOLDER + "/person/noAvatar.png"
-                : user.profilePicture
+                : PUBLIC_FOLDER +user.profilePicture
             }
             alt=""
             className="shareProfileImg"

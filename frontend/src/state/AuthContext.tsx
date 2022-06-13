@@ -1,22 +1,11 @@
-import { createContext, useReducer, ReactNode} from "react";
+import { createContext, useReducer, ReactNode, useEffect} from "react";
 import { AuthReducer, TState } from "./AuthReducer";
 
 const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
 
 //最初のユーザー状態を定義
 const initialState = {
-  // user: null,
-  user:{
-    _id :"62972757ee8afe17603116e4",
-    username : "shincode",
-    email : "shincode@gmail.com",
-    password : "abcdef",
-    profilePicture : PUBLIC_FOLDER  + "/person/1.jpeg",
-    coverPicture : "",
-    followers : [""],
-    followings : [""],
-    isAdmin: false,
-  },
+  user: JSON.parse(localStorage.getItem("user")!)  || null,
   isFetching: false,
   error: false,
 };
@@ -27,6 +16,10 @@ export const AuthContext = createContext<TState>(initialState);
 export const AuthContextProvider= (props: { children: ReactNode }) => {
   const { children } = props;
   const [state, dispatch] = useReducer(AuthReducer, initialState);
+
+  useEffect(()=> {
+    localStorage.setItem("user",JSON.stringify(state.user))
+  }, [state.user])
 
   return (
     <AuthContext.Provider

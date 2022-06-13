@@ -14,15 +14,19 @@ type Props = {
 
 export const TimeLine: FC<Props> = memo((props) => {
   const { username } = props;
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [posts, setPosts] = useState<Array<TPost>>([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = (username)
+      const response = username
         ? await axios.get<Array<TPost>>(`/posts/profile/${username}`) //プロフィールの場合
         : await axios.get<Array<TPost>>(`/posts/timeline/${user!._id}`); //ホームの場合
-      setPosts(response.data);
+      setPosts(
+        response.data.sort((post1:TPost, post2:TPost) => {
+          return Number(new Date(post2.createdAt!)) - Number(new Date(post1.createdAt!));
+        })
+      );
     };
     fetchPosts();
   }, [username, user!._id]);

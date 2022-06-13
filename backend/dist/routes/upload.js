@@ -5,13 +5,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const multer_1 = __importDefault(require("multer"));
+const dotenv_1 = __importDefault(require("dotenv"));
 const uploadrouter = express_1.default.Router();
+dotenv_1.default.config();
+const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER_FOR_MULTER;
+console.log(PUBLIC_FOLDER);
 const storage = multer_1.default.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "public/images");
+        cb(null, PUBLIC_FOLDER);
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname);
+        cb(null, req.body.name);
     },
 });
 const upload = (0, multer_1.default)({ storage });

@@ -25,7 +25,7 @@ type Props = {
 export const Post: FC<Props> = memo((props) => {
   const { post } = props;
   const { user: loginUser } = useContext(AuthContext);
-  const [like, setLike] = useState<number>(post.likes.length);
+  const [like, setLike] = useState<number>(post.likes? post.likes.length : 0);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState<TUser>();
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -70,7 +70,7 @@ export const Post: FC<Props> = memo((props) => {
               />
             </Link>
             <span className="postUsername">{user ? user.username : ""}</span>
-            <span className="postDate">{format(post.createdAt)}</span>
+            <span className="postDate">{format(post.createdAt!)}</span>
           </div>
           <div className="postTopRight">
             <MoreVert />
