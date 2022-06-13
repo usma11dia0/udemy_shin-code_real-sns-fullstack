@@ -1,4 +1,6 @@
-import React from "react";
+import { memo, useContext } from "react";
+import { Link } from "react-router-dom";
+
 import { CloseFriend } from "../closeFriend/CloseFriend";
 import {
   Bookmark,
@@ -9,11 +11,16 @@ import {
   Search,
   Settings,
 } from "@mui/icons-material";
-import "./Sidebar.css";
 import { Users } from "../../dummyData";
-import { Link } from "react-router-dom";
+import "./Sidebar.css";
+import { AuthContext } from "../../state/AuthContext";
 
-export const Sidebar = () => {
+
+
+export const Sidebar = memo(() => {
+  
+  const { user } = useContext(AuthContext);
+
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">
@@ -43,7 +50,7 @@ export const Sidebar = () => {
           <li className="sidebarListItem">
             <Person className="sidebarIcon" />
             <Link
-              to="/profile/shincode"
+              to= {`/profile/${user?.username}`}
               style={{ textDecoration: "none", color: "black" }}
             >
               <span className="sidebarListItemText">プロフィール</span>
@@ -63,4 +70,4 @@ export const Sidebar = () => {
       </div>
     </div>
   );
-};
+});
