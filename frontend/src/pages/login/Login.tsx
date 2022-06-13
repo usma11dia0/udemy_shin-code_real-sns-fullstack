@@ -48,7 +48,7 @@ export const Login = () => {
             />
             <button className="loginButton">ログイン</button>
             <span className="loginForgot">パスワードを忘れた方へ</span>
-            <button className="registerButton">アカウント作成</button>
+            <button className="toRegisterButton">アカウント作成</button>
           </form>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { FormEvent, useRef } from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./Register.css";
 
@@ -42,7 +43,7 @@ export const Register = () => {
         </div>
         <div className="registerRight">
           <form className="registerBox" onSubmit={(e) => handleSubmit(e)}>
-            <p className="registerMsg">新規登録はこちら</p>
+            <p className="registerMsg">新規登録</p>
             <input
               type="text"
               className="registerInput"
@@ -76,7 +77,9 @@ export const Register = () => {
             <button className="loginButton" type="submit">
               サインアップ
             </button>
-            <button className="registerButton">ログイン</button>
+            <Link to ='/login' className="linkToLogin">
+              ログインはこちら  
+            </Link>
           </form>
         </div>
       </div>
