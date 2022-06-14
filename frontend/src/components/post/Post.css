@@ -30,6 +30,7 @@
 
 .postTopRight {
   display: flex;
+  position: relative;
 }
 
 .MoreVertIcon {
@@ -40,7 +41,7 @@
 .miniMenu {
   display:flex;
   top: -5px;
-  left: -3px;
+  left: -2px;
   border-radius: 8px;
   /* 吹き出し用設定 */
   position: relative;
@@ -53,18 +54,35 @@
   border: solid 1px #7e7c7c;
   border-radius: 0.5em;
   box-sizing: border-box;
-  z-index: -1;
+  z-index: 5;
 }
 
+.miniMenuInner {
+  position:absolute;
+  top: -5px;
+  right: 16px;
+  width: 80%;
+  height: 95%;
+  padding-top: 5px;
+  padding-right:11px;
+  background-color: #f8fcff;
+  opacity: 1;
+  z-index: 5;
+  transition: all 0.3s ease;
+}
+
+.menuOpen {
+  opacity:1;
+  transform: translateX(-120px);
+}
+
+
 .miniMenuText{
+  position:relative;
   color:#e91e63;
   padding-left: 0.2em;
   font-weight:bold;
   cursor:pointer;
-}
-
-.menuOpen {
-  z-index: 5;
 }
 
 .miniMenu:before {
