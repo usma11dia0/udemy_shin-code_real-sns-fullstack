@@ -14,9 +14,10 @@ import "./Post.css";
 
 import axios from "axios";
 import { format } from "timeago.js";
-import { MoreVert } from "@mui/icons-material";
+import { Delete, MoreVert } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../state/AuthContext";
+import { pink } from "@mui/material/colors";
 
 type Props = {
   post: TPost;
@@ -25,9 +26,10 @@ type Props = {
 export const Post: FC<Props> = memo((props) => {
   const { post } = props;
   const { user: loginUser } = useContext(AuthContext);
-  const [like, setLike] = useState<number>(post.likes? post.likes.length : 0);
+  const [like, setLike] = useState<number>(post.likes ? post.likes.length : 0);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState<TUser>();
+  const [toggleClass, setToggleClass] = useState(false)
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
@@ -50,6 +52,11 @@ export const Post: FC<Props> = memo((props) => {
     setIsLiked(!isLiked);
   }, [setLike, setIsLiked, like, isLiked]);
 
+  const onToggle = useCallback(() => {
+    console.log('再レンダリングチェック');
+    setToggleClass(!toggleClass);
+  },[toggleClass]);
+
   return (
     <div className="post">
       <div className="postWrapper">
@@ -63,7 +70,6 @@ export const Post: FC<Props> = memo((props) => {
                     : !user.profilePicture
                     ? PUBLIC_FOLDER + "/person/noAvatar.png"
                     : PUBLIC_FOLDER + user.profilePicture
-                    
                 }
                 alt=""
                 className="postProfileImg"
@@ -73,12 +79,20 @@ export const Post: FC<Props> = memo((props) => {
             <span className="postDate">{format(post.createdAt!)}</span>
           </div>
           <div className="postTopRight">
-            <MoreVert />
+            <nav className= {`${toggleClass? "miniMenu menuOpen" : "miniMenu"}`}>
+                <Delete sx={{ color: pink[500] }}/>
+                <div className = "miniMenuText">削除</div>
+            </nav>
+            <MoreVert className="MoreVertIcon" onClick={() => onToggle()} />
           </div>
         </div>
         <div className="postCenter">
           <span className="postText">{post.desc}</span>
-          <img src={post.img? PUBLIC_FOLDER + post.img: undefined} alt="" className="postImg" />
+          <img
+            src={post.img ? PUBLIC_FOLDER + post.img : undefined}
+            alt=""
+            className="postImg"
+          />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">

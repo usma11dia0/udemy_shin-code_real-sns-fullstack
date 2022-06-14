@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import { Search, Chat, Notifications, Logout } from "@mui/icons-material";
 import "./Topbar.css";
 import { Link } from "react-router-dom";
@@ -8,10 +8,10 @@ export const Topbar = () => {
   const { user } = useContext(AuthContext);
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
 
-  const onClickLogout = () => {
+  const onClickLogout = useCallback(() => {
     localStorage.removeItem("user");
     window.location.reload();
-  }
+  },[]);
 
   return (
     <>
