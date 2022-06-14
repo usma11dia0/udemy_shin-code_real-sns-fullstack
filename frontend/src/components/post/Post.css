@@ -68,14 +68,24 @@
   background-color: #f8fcff;
   opacity: 1;
   z-index: 5;
-  transition: all 0.3s ease;
+  /* transition: all 0.3s ease; */
 }
 
 .menuOpen {
   opacity:1;
-  transform: translateX(-120px);
+  animation: slideFadeout 0.3s ease;
+  animation-fill-mode: forwards;
 }
 
+@keyframes slideFadeout {
+  0%{
+    transform: translateX(0px);
+}
+100%{
+  transform: translateX(-120px);
+  opacity: 0;
+}
+}
 
 .miniMenuText{
   position:relative;
