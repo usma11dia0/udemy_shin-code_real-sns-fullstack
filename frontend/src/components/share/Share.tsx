@@ -6,18 +6,18 @@ import {
   useState,
   ChangeEvent,
 } from "react";
-import { Analytics, Face, Gif, Image } from "@mui/icons-material";
-import "./Share.css";
-import { AuthContext } from "../../state/AuthContext";
 import axios from "axios";
+import { Analytics, Face, Gif, Image } from "@mui/icons-material";
 
+import { AuthContext } from "../../state/AuthContext";
 import { TPost } from "../../types/api/posts";
+import "./Share.css";
 
 export const Share = memo(() => {
   const { user } = useContext(AuthContext);
   const desc = useRef<HTMLInputElement>(null);
-
   const [file, setFile] = useState<File>();
+
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
