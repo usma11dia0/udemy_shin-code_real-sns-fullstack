@@ -4,7 +4,8 @@ import dotenv from "dotenv";
 
 const uploadrouter = Express.Router();
 dotenv.config();
-const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER_FOR_MULTER;
+const PUBLIC_FOLDER = `C:/Users/yusuke/Documents/Udemy/MERNフルスタック開発で本格的なSNSアプリを1から自分の手で作成しよう/real-sns/frontend/public/assets/`;
+// const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER_FOR_MULTER;
 console.log(PUBLIC_FOLDER);
 
 const storage = multer.diskStorage({

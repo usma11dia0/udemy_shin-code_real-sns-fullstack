@@ -106,7 +106,7 @@ export const Post: FC<Props> = memo((props) => {
         <div className="postCenter">
           <span className="postText">{post.desc}</span>
           <img
-            src={post.img ? PUBLIC_FOLDER + post.img : undefined}
+            src={post.img ? `${PUBLIC_FOLDER}/${post.img}` : undefined}
             alt=""
             className="postImg"
           />
